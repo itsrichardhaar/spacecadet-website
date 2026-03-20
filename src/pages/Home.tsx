@@ -4,7 +4,7 @@ import './Home.css';
 
 const stats = [
   { value: '120+', label: 'Projects Delivered' },
-  { value: '8 yrs', label: 'Industry Experience' },
+  { value: '6 yrs', label: 'Industry Experience' },
   { value: '40+', label: 'Happy Clients' },
   { value: '4', label: 'Core Disciplines' },
 ];
