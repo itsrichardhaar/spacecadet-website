@@ -1,4 +1,4 @@
-/* ── Shared ─────────────────────────────────── */
+/* ── Shared buttons ──────────────────────────── */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -8,8 +8,19 @@
   font-size: 15px;
   font-weight: 600;
   border: none;
-  transition: background 0.2s, transform 0.15s, box-shadow 0.2s, color 0.2s;
+  transition: background 0.2s, transform 0.18s, box-shadow 0.2s, color 0.2s;
   text-decoration: none;
+  overflow: hidden;
+}
+
+.btn__arrow {
+  transform: translateX(0);
+  transition: transform 0.3s ease !important;
+}
+
+.btn:hover .btn__arrow {
+  transform: translateX(5px);
+  transition: transform 0.3s ease !important;
 }
 
 .btn--primary {
@@ -52,6 +63,38 @@
 .section-header {
   text-align: center;
   margin-bottom: 64px;
+}
+
+/* ── Scroll animation primitives ─────────────── */
+
+/* Hero children: play once on load via CSS animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  opacity: 0;
+  animation: fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Scroll-triggered: uses standalone `translate` so hover `transform` never conflicts */
+.scroll-fade-up {
+  opacity: 0;
+  translate: 0 28px;
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              translate 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.in-view .scroll-fade-up {
+  opacity: 1;
+  translate: 0 0;
 }
 
 /* ── Hero ────────────────────────────────────── */
@@ -120,7 +163,7 @@
 
 @keyframes pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(0.85); }
+  50%       { opacity: 0.6; transform: scale(0.85); }
 }
 
 .hero__heading {
@@ -214,13 +257,13 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 40px;
-  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s, transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s;
 }
 
 .service-card:hover {
-  border-color: rgba(79,124,255,0.3);
-  transform: translateY(-4px);
-  box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+  border-color: rgba(79,124,255,0.35);
+  transform: translateY(-5px);
+  box-shadow: 0 20px 52px rgba(0,0,0,0.35);
 }
 
 .service-card__icon {
@@ -247,14 +290,23 @@
   font-size: 14px;
   font-weight: 600;
   color: var(--accent);
-  transition: gap 0.2s;
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  transition: gap 0.2s;
 }
 
-.service-card__link:hover {
-  gap: 8px;
+.service-card__arrow {
+  transform: translateX(0);
+  font-size: 16px !important;
+  width: 16px !important;
+  height: 16px !important;
+  transition: transform 0.3s ease !important;
+}
+
+.service-card__link:hover .service-card__arrow {
+  transform: translateX(5px);
+  transition: transform 0.3s ease !important;
 }
 
 /* ── CTA Band ────────────────────────────────── */
@@ -291,6 +343,7 @@
   font-weight: 800;
   letter-spacing: -1.5px;
   margin-bottom: 16px;
+  line-height: 1.15;
 }
 
 .cta-band__sub {
