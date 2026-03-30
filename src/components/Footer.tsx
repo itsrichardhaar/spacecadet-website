@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ReactComponent as LogoMark } from '../assets/space_cadet_logo.svg';
 import './Footer.css';
 
 const Footer: React.FC = () => {
@@ -8,7 +9,7 @@ const Footer: React.FC = () => {
       <div className="footer__inner">
         <div className="footer__brand">
           <Link to="/" className="footer__logo">
-            <span className="footer__logo-mark">SC</span>
+            <LogoMark className="navbar__logo-mark" />
             <span className="footer__logo-text">Spacecadet</span>
           </Link>
           <p className="footer__tagline">

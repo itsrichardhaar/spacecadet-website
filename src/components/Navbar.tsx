@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
 import { ReactComponent as LogoMark } from '../assets/space_cadet_logo.svg';
 import './Navbar.css';
@@ -25,15 +26,17 @@ const Navbar: React.FC = () => {
     { path: '/contact', label: 'Contact' },
   ];
 
-  return (
-    <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
-      <div className="navbar__inner">
-        <Link to="/" className="navbar__logo">
-          <LogoMark className="navbar__logo-mark" />
-          <span className="navbar__logo-text">Spacecadet</span>
-        </Link>
-
-        <ul className={`navbar__links ${menuOpen ? 'navbar__links--open' : ''}`}>
+  const mobileMenu = menuOpen
+    ? ReactDOM.createPortal(
+        <ul className="navbar__mobile-menu">
+          <button
+            className="navbar__mobile-close"
+            onClick={() => setMenuOpen(false)}
+            aria-label="Close menu"
+          >
+            <span />
+            <span />
+          </button>
           {navLinks.map(({ path, label }) => (
             <li key={path}>
               <Link
@@ -49,19 +52,51 @@ const Navbar: React.FC = () => {
               Get Started
             </Link>
           </li>
-        </ul>
+        </ul>,
+        document.body
+      )
+    : null;
 
-        <button
-          className={`navbar__burger ${menuOpen ? 'navbar__burger--open' : ''}`}
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          <span />
-          <span />
-          <span />
-        </button>
-      </div>
-    </nav>
+  return (
+    <>
+      <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
+        <div className="navbar__inner">
+          <Link to="/" className="navbar__logo">
+            <LogoMark className="navbar__logo-mark" />
+            <span className="navbar__logo-text">Spacecadet</span>
+          </Link>
+
+          <ul className="navbar__links">
+            {navLinks.map(({ path, label }) => (
+              <li key={path}>
+                <Link
+                  to={path}
+                  className={`navbar__link ${location.pathname === path ? 'navbar__link--active' : ''}`}
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link to="/contact" className="navbar__cta">
+                Get Started
+              </Link>
+            </li>
+          </ul>
+
+          <button
+            className={`navbar__burger ${menuOpen ? 'navbar__burger--open' : ''}`}
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+        </div>
+      </nav>
+      {mobileMenu}
+    </>
   );
 };
 
