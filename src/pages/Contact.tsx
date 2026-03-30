@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useInView } from '../hooks/useInView';
 import './Contact.css';
 
 type FormData = {
@@ -25,7 +26,7 @@ const budgets = [
   '$25k – $50k',
   '$50k – $100k',
   '$100k+',
-  'Let\'s discuss',
+  "Let's discuss",
 ];
 
 const contactInfo = [
@@ -61,6 +62,8 @@ const Contact: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const { ref: mainRef, inView: mainInView } = useInView<HTMLElement>();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -76,26 +79,28 @@ const Contact: React.FC = () => {
 
   return (
     <div className="contact">
-      {/* Hero */}
+
+      {/* ── Hero ──────────────────────────────────── */}
       <section className="contact-hero">
         <div className="contact-hero__glow" />
         <div className="contact-hero__inner">
-          <p className="section-eyebrow">Contact</p>
-          <h1 className="contact-hero__heading">
+          <p className="section-eyebrow animate-fade-up" style={{ animationDelay: '0ms' }}>Contact</p>
+          <h1 className="contact-hero__heading animate-fade-up" style={{ animationDelay: '80ms' }}>
             Let's build something<br />
             <span className="gradient-text">remarkable together</span>
           </h1>
-          <p className="contact-hero__sub">
+          <p className="contact-hero__sub animate-fade-up" style={{ animationDelay: '180ms' }}>
             Tell us about your project. We'll review it and get back to you within one business day.
           </p>
         </div>
       </section>
 
-      {/* Main */}
-      <section className="contact-main">
+      {/* ── Main ──────────────────────────────────── */}
+      <section ref={mainRef} className={`contact-main ${mainInView ? 'in-view' : ''}`}>
         <div className="contact-main__inner">
+
           {/* Left: Info */}
-          <div className="contact-info">
+          <div className="contact-info scroll-fade-up" style={{ transitionDelay: '0ms' }}>
             <h2>Get in touch</h2>
             <p className="contact-info__desc">
               Whether you have a fully scoped project or just an idea, we'd love to hear from you. No obligation, no sales pitch — just a real conversation.
@@ -130,7 +135,7 @@ const Contact: React.FC = () => {
           </div>
 
           {/* Right: Form */}
-          <div className="contact-form-wrap">
+          <div className="contact-form-wrap scroll-fade-up" style={{ transitionDelay: '150ms' }}>
             {submitted ? (
               <div className="contact-success">
                 <div className="contact-success__icon">✓</div>
@@ -222,8 +227,10 @@ const Contact: React.FC = () => {
               </form>
             )}
           </div>
+
         </div>
       </section>
+
     </div>
   );
 };

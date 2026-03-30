@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useInView } from '../hooks/useInView';
 import './Solutions.css';
 
 type Category = 'all' | 'dev' | 'design' | 'ai' | 'marketing';
@@ -94,30 +96,34 @@ const tagColors: Record<string, string> = {
 
 const Solutions: React.FC = () => {
   const [active, setActive] = useState<Category>('all');
+  const { ref: gridRef,    inView: gridInView    } = useInView<HTMLElement>();
+  const { ref: processRef, inView: processInView } = useInView<HTMLElement>();
+  const { ref: ctaRef,     inView: ctaInView     } = useInView<HTMLElement>();
 
   const filtered = active === 'all' ? solutions : solutions.filter((s) => s.category === active);
 
   return (
     <div className="solutions">
-      {/* Hero */}
+
+      {/* ── Hero ──────────────────────────────────── */}
       <section className="solutions-hero">
         <div className="solutions-hero__glow" />
         <div className="solutions-hero__inner">
-          <p className="section-eyebrow">Solutions</p>
-          <h1 className="solutions-hero__heading">
+          <p className="section-eyebrow animate-fade-up" style={{ animationDelay: '0ms' }}>Solutions</p>
+          <h1 className="solutions-hero__heading animate-fade-up" style={{ animationDelay: '80ms' }}>
             Everything you need<br />
             <span className="gradient-text">to build & grow</span>
           </h1>
-          <p className="solutions-hero__sub">
+          <p className="solutions-hero__sub animate-fade-up" style={{ animationDelay: '180ms' }}>
             We offer a complete suite of services across software development, design, AI, and marketing — all under one roof.
           </p>
         </div>
       </section>
 
-      {/* Filters + Grid */}
-      <section className="solutions-grid-section">
+      {/* ── Filters + Grid ────────────────────────── */}
+      <section ref={gridRef} className={`solutions-grid-section ${gridInView ? 'in-view' : ''}`}>
         <div className="solutions-grid-inner">
-          <div className="solutions-filters">
+          <div className="solutions-filters scroll-fade-up" style={{ transitionDelay: '0ms' }}>
             {filters.map((f) => (
               <button
                 key={f.key}
@@ -131,7 +137,7 @@ const Solutions: React.FC = () => {
 
           <div className="solutions-grid">
             {filtered.map((s) => (
-              <div className="solution-card" key={s.title}>
+              <div className="solution-card solution-card--animate" key={s.title}>
                 <div
                   className="solution-card__tag"
                   style={{ color: tagColors[s.tag], background: `${tagColors[s.tag]}18`, borderColor: `${tagColors[s.tag]}30` }}
@@ -154,10 +160,10 @@ const Solutions: React.FC = () => {
         </div>
       </section>
 
-      {/* Process */}
-      <section className="process">
+      {/* ── Process ───────────────────────────────── */}
+      <section ref={processRef} className={`process ${processInView ? 'in-view' : ''}`}>
         <div className="process__inner">
-          <div className="section-header">
+          <div className="section-header scroll-fade-up" style={{ transitionDelay: '0ms' }}>
             <p className="section-eyebrow">How We Work</p>
             <h2 className="section-title">A process built for<br />clarity and momentum</h2>
           </div>
@@ -165,10 +171,14 @@ const Solutions: React.FC = () => {
             {[
               { n: '01', title: 'Discovery', desc: 'We start by deeply understanding your goals, users, and constraints. No assumptions.' },
               { n: '02', title: 'Strategy', desc: 'We propose a focused plan — what to build, how to build it, and what success looks like.' },
-              { n: '03', title: 'Execution', desc: 'We deliver in short cycles with regular checkpoints so you\'re always in the loop.' },
+              { n: '03', title: 'Execution', desc: "We deliver in short cycles with regular checkpoints so you're always in the loop." },
               { n: '04', title: 'Launch & Scale', desc: 'We help you go live, measure what matters, and iterate toward sustained growth.' },
-            ].map((step) => (
-              <div className="process__step" key={step.n}>
+            ].map((step, i) => (
+              <div
+                className="process__step scroll-fade-up"
+                key={step.n}
+                style={{ transitionDelay: `${80 + i * 80}ms` }}
+              >
                 <span className="process__step-num">{step.n}</span>
                 <h3>{step.title}</h3>
                 <p>{step.desc}</p>
@@ -178,14 +188,18 @@ const Solutions: React.FC = () => {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="solutions-cta">
-        <div className="solutions-cta__inner">
+      {/* ── CTA ───────────────────────────────────── */}
+      <section ref={ctaRef} className={`solutions-cta ${ctaInView ? 'in-view' : ''}`}>
+        <div className="solutions-cta__inner scroll-fade-up">
           <h2>Not sure what you need?</h2>
           <p>Book a free 30-min call and we'll help you figure it out.</p>
-          <Link to="/contact" className="btn btn--primary">Schedule a Call</Link>
+          <Link to="/contact" className="btn btn--primary">
+            Schedule a Call
+            <ArrowForwardIcon className="btn__arrow" fontSize="small" />
+          </Link>
         </div>
       </section>
+
     </div>
   );
 };
