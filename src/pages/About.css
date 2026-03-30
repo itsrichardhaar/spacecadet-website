@@ -214,12 +214,13 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 36px 28px;
-  transition: border-color 0.2s, transform 0.2s;
+  transition: border-color 0.2s, transform 0.2s !important;
 }
 
 .value-card:hover {
   border-color: rgba(79,124,255,0.3);
   transform: translateY(-4px);
+  transition: transform 0.2s ease !important;
 }
 
 .value-card__icon {
