@@ -29,7 +29,6 @@
 }
 .btn--primary:hover {
   background: #6290ff;
-  transform: translateY(-2px);
   box-shadow: 0 8px 28px rgba(79, 124, 255, 0.4);
 }
 
@@ -40,7 +39,6 @@
 }
 .btn--ghost:hover {
   background: rgba(255,255,255,0.1);
-  transform: translateY(-2px);
 }
 
 .section-eyebrow {
@@ -257,12 +255,11 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 40px;
-  transition: border-color 0.2s, transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .service-card:hover {
   border-color: rgba(79,124,255,0.35);
-  transform: translateY(-5px);
   box-shadow: 0 20px 52px rgba(0,0,0,0.35);
 }
 

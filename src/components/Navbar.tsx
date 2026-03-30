@@ -19,10 +19,17 @@ const Navbar: React.FC = () => {
     setMenuOpen(false);
   }, [location]);
 
-  const navLinks = [
+  const desktopLinks = [
+    { path: '/about', label: 'About' },
+    { path: '/solutions', label: 'Solutions' },
+    { path: '/pricing', label: 'Pricing' },
+  ];
+
+  const mobileLinks = [
     { path: '/', label: 'Home' },
     { path: '/about', label: 'About' },
     { path: '/solutions', label: 'Solutions' },
+    { path: '/pricing', label: 'Pricing' },
     { path: '/contact', label: 'Contact' },
   ];
 
@@ -37,7 +44,7 @@ const Navbar: React.FC = () => {
             <span />
             <span />
           </button>
-          {navLinks.map(({ path, label }) => (
+          {mobileLinks.map(({ path, label }) => (
             <li key={path}>
               <Link
                 to={path}
@@ -67,7 +74,7 @@ const Navbar: React.FC = () => {
           </Link>
 
           <ul className="navbar__links">
-            {navLinks.map(({ path, label }) => (
+            {desktopLinks.map(({ path, label }) => (
               <li key={path}>
                 <Link
                   to={path}
