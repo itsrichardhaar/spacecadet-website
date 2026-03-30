@@ -45,8 +45,8 @@ const Home: React.FC = () => {
             Available for new projects
           </div>
           <h1 className="hero__heading">
-            We build the future<br />
-            <span className="hero__heading-gradient">one product at a time</span>
+            Ready. Set.
+            <span className="hero__heading-gradient"> Launch.</span>
           </h1>
           <p className="hero__sub">
             Spacecadet is a multidisciplinary studio delivering software development, product design,
