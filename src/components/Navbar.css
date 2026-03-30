@@ -33,17 +33,9 @@
 }
 
 .navbar__logo-mark {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 36px;
   height: 36px;
-  border-radius: 8px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  font-weight: 800;
-  font-size: 14px;
   color: #fff;
-  letter-spacing: -0.5px;
 }
 
 .navbar__logo-text {

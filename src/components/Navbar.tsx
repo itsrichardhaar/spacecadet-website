@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { ReactComponent as LogoMark } from '../assets/space_cadet_logo.svg';
 import './Navbar.css';
 
 const Navbar: React.FC = () => {
@@ -28,7 +29,7 @@ const Navbar: React.FC = () => {
     <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <div className="navbar__inner">
         <Link to="/" className="navbar__logo">
-          <span className="navbar__logo-mark">SC</span>
+          <LogoMark className="navbar__logo-mark" />
           <span className="navbar__logo-text">Spacecadet</span>
         </Link>
 
