@@ -27,13 +27,6 @@ const values = [
 
 const team = [
   {
-    name: 'David Springer',
-    role: 'Co-Founder & CCO',
-    bio: 'Full-stack engineer with 12 years building products at startups and Fortune 500s.',
-    initials: 'RH',
-    color: '#4fcdff',
-  },
-  {
     name: 'Richard Haar',
     role: 'Co-Founder & CTO',
     bio: 'Full-stack engineer with 12 years building products at startups and Fortune 500s.',
