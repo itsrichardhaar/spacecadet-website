@@ -27,8 +27,15 @@ const values = [
 
 const team = [
   {
+    name: 'David Springer',
+    role: 'Co-Founder & CCO',
+    bio: 'Full-stack engineer with 12 years building products at startups and Fortune 500s.',
+    initials: 'RH',
+    color: '#4fcdff',
+  },
+  {
     name: 'Richard Haar',
-    role: 'Co-Founder & CEO',
+    role: 'Co-Founder & CTO',
     bio: 'Full-stack engineer with 12 years building products at startups and Fortune 500s.',
     initials: 'RH',
     color: '#4f7cff',
@@ -36,14 +43,14 @@ const team = [
   {
     name: 'Andrew Thomasson',
     role: 'Co-Founder & CFO',
-    bio: 'Former lead at a top-tier design consultancy. Obsessed with human-centered UX.',
+    bio: 'Former lead at a top-tier commercial insurance consultancy.',
     initials: 'AT',
     color: '#7c5cff',
   },
   {
     name: 'Tony Shaw',
-    role: 'AI & ML Lead',
-    bio: 'PhD in machine learning. Has shipped AI features used by millions of people.',
+    role: 'UI Design & AI Lead',
+    bio: 'Has shipped AI features used by millions of people.',
     initials: 'TS',
     color: '#5cb8ff',
   },
