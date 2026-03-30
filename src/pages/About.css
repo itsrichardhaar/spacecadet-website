@@ -46,7 +46,6 @@
 
 .btn--primary:hover {
   background: #6290ff;
-  transform: translateY(-2px);
   box-shadow: 0 8px 28px rgba(79, 124, 255, 0.4);
 }
 
@@ -234,12 +233,11 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 32px;
-  transition: border-color 0.2s, transform 0.2s;
+  transition: border-color 0.2s;
 }
 
 .team-card:hover {
   border-color: rgba(79,124,255,0.25);
-  transform: translateY(-3px);
 }
 
 .team-card__avatar {
