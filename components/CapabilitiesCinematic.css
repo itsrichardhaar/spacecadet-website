@@ -1,0 +1,108 @@
+.capabilities-cinematic {
+  padding: var(--space-9) var(--space-6);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.capabilities-cinematic__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.capabilities-cinematic__header {
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+.capabilities-cinematic__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-5);
+}
+
+.capability-tile {
+  /* Animated by GSAP at runtime — JS owns opacity/scale on desktop.
+     Initial state below is the static fallback for mobile / reduced-motion. */
+  opacity: 1;
+  transform: scale(1);
+  will-change: transform, opacity;
+}
+
+.capability-tile__link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-7);
+  border-radius: var(--radius-lg);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-decoration: none;
+  height: 100%;
+  transition: border-color var(--duration-base) var(--ease-out),
+              background var(--duration-base) var(--ease-out);
+}
+
+.capability-tile__link:hover {
+  border-color: var(--accent);
+  background: var(--bg-surface);
+}
+
+.capability-tile__link:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.capability-tile__index {
+  font-size: var(--font-size-eyebrow);
+  font-weight: var(--font-weight-semibold);
+  color: var(--accent);
+  letter-spacing: var(--letter-spacing-eyebrow);
+  text-transform: uppercase;
+}
+
+.capability-tile__name {
+  font-size: 24px;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: 1.2;
+  margin-top: var(--space-2);
+}
+
+.capability-tile__summary {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.capability-tile__cta {
+  font-size: 14px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--accent);
+  margin-top: auto;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.capability-tile__link:hover .capability-tile__cta {
+  transform: translateX(4px);
+}
+
+@media (max-width: 900px) {
+  .capabilities-cinematic {
+    /* Stacked layout on mobile / tablet — no pin, no choreography. */
+    min-height: auto;
+    padding: var(--space-8) var(--space-5);
+  }
+
+  .capabilities-cinematic__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .capability-tile__link {
+    padding: var(--space-6);
+  }
+}
