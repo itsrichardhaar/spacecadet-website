@@ -23,17 +23,17 @@ const Footer: React.FC = () => {
             <ul>
               <li><Link href="/">Home</Link></li>
               <li><Link href="/about">About</Link></li>
-              <li><Link href="/solutions">Solutions</Link></li>
+              <li><Link href="/capabilities">Capabilities</Link></li>
               <li><Link href="/contact">Contact</Link></li>
             </ul>
           </div>
           <div className="footer__col">
-            <h4>Services</h4>
+            <h4>Capabilities</h4>
             <ul>
-              <li><Link href="/solutions">Software Development</Link></li>
-              <li><Link href="/solutions">Product &amp; UX Design</Link></li>
-              <li><Link href="/solutions">AI Consulting</Link></li>
-              <li><Link href="/solutions">Marketing Strategy</Link></li>
+              <li><Link href="/capabilities#custom-ai-products">Custom AI Products</Link></li>
+              <li><Link href="/capabilities#ai-integrations">AI Integrations</Link></li>
+              <li><Link href="/capabilities#agents-automation">Intelligent Agents</Link></li>
+              <li><Link href="/capabilities#ai-strategy">AI Strategy</Link></li>
             </ul>
           </div>
           <div className="footer__col">
@@ -41,7 +41,6 @@ const Footer: React.FC = () => {
             <ul>
               <li><Link href="/contact">hello@spacecadet.io</Link></li>
               <li><a href="https://linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a></li>
-              <li><a href="https://twitter.com" target="_blank" rel="noreferrer">Twitter / X</a></li>
             </ul>
           </div>
         </div>
