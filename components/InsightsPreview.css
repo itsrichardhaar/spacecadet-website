@@ -1,0 +1,183 @@
+.insights-preview {
+  padding: var(--space-9) var(--space-6);
+}
+
+.insights-preview__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.insights-preview__header {
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+.insights-preview__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+
+/* ── Tile ────────────────────────────────────── */
+
+.insights-preview__tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-decoration: none;
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out),
+    background var(--duration-base) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .insights-preview__tile:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+    background: var(--bg-surface);
+  }
+  .insights-preview__tile:hover .insights-preview__title::after {
+    transform: scaleX(1);
+  }
+  .insights-preview__tile:hover .insights-preview__read-more {
+    color: var(--accent-hover);
+    transform: translateX(3px);
+  }
+}
+
+.insights-preview__tile:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* ── Meta line (date · reading time) ─────────── */
+
+.insights-preview__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: var(--font-weight-medium);
+}
+
+.insights-preview__date {
+  font-variant-numeric: tabular-nums;
+}
+
+.insights-preview__dot {
+  opacity: 0.6;
+}
+
+/* ── Title with underline draw-in ────────────── */
+
+.insights-preview__title {
+  font-size: 19px;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: 1.35;
+  position: relative;
+  display: inline-block;
+  /* Match the tile colour so the title stays calm at rest; the
+     underline is the hover signal. */
+}
+
+.insights-preview__title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.insights-preview__summary {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.insights-preview__read-more {
+  margin-top: auto;
+  font-size: 14px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--accent);
+  transition:
+    color var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out);
+}
+
+/* ── See all writing CTA ─────────────────────── */
+
+.insights-preview__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-7);
+}
+
+.insights-preview__cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text);
+  font-size: 15px;
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  position: relative;
+  padding: var(--space-2) 0;
+}
+
+.insights-preview__cta-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .insights-preview__cta-link:hover::after {
+    transform: scaleX(1);
+  }
+  .insights-preview__cta-link:hover .insights-preview__cta-arrow {
+    transform: translateX(4px);
+  }
+}
+
+.insights-preview__cta-arrow {
+  color: var(--accent);
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+/* ── Responsive ──────────────────────────────── */
+
+@media (max-width: 900px) {
+  .insights-preview {
+    padding: var(--space-8) var(--space-5);
+  }
+  .insights-preview__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+  .insights-preview__tile {
+    padding: var(--space-5);
+  }
+  .insights-preview__title {
+    font-size: 17px;
+  }
+}
