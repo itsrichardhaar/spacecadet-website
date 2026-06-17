@@ -3,6 +3,7 @@
 import React, { useRef } from 'react';
 import Button from '@/components/Button';
 import CapabilitiesCinematic from '@/components/CapabilitiesCinematic';
+import SelectedWork from '@/components/SelectedWork';
 import SocialProofBar from '@/components/SocialProofBar';
 import { useInView } from '@/hooks/useInView';
 import {
@@ -70,6 +71,9 @@ const Home: React.FC = () => {
 
       {/* ── Capabilities (cinematic moment #2) ────── */}
       <CapabilitiesCinematic />
+
+      {/* ── Selected work preview ─────────────────── */}
+      <SelectedWork />
 
       {/* ── CTA Band ──────────────────────────────── */}
       <section
