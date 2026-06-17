@@ -4,8 +4,29 @@
   padding: 0;
 }
 
-html {
-  scroll-behavior: smooth;
+/* Lenis baseline styles. When Lenis is active, the .lenis-smooth class is
+   applied to <html> and disables native smooth-scroll so the two systems
+   don't compete. When Lenis is not active (touch / reduced-motion / mobile),
+   native scroll behaves normally. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
 }
 
 body {
