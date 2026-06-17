@@ -1,0 +1,203 @@
+.selected-work {
+  padding: var(--space-9) var(--space-6);
+}
+
+.selected-work__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.selected-work__header {
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+.selected-work__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+
+/* ── Tile ────────────────────────────────────── */
+
+.selected-work__tile {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-lg);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--text);
+  /* Hover lift + shadow — transform/box-shadow only, GPU-friendly. */
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out);
+  position: relative;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .selected-work__tile:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+    border-color: var(--accent);
+  }
+}
+
+.selected-work__tile:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* ── Cover (gradient placeholder until real images land in #19) ── */
+
+.selected-work__cover {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: var(--cover-grad);
+  overflow: hidden;
+}
+
+.selected-work__cover-detail {
+  position: absolute;
+  inset: 0;
+  background: var(--detail-grad);
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease-out);
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .selected-work__tile:hover .selected-work__cover-detail {
+    opacity: 1;
+  }
+}
+
+/* ── Body ─────────────────────────────────────── */
+
+.selected-work__body {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  position: relative;
+}
+
+.selected-work__tag {
+  align-self: flex-start;
+  font-size: 12px;
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-eyebrow);
+  color: var(--accent);
+  background: var(--accent-muted);
+  border: 1px solid var(--accent-muted);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.selected-work__title {
+  font-size: 20px;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: 1.3;
+  position: relative;
+  display: inline-block;
+}
+
+.selected-work__title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .selected-work__tile:hover .selected-work__title::after {
+    transform: scaleX(1);
+  }
+}
+
+.selected-work__summary {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.selected-work__year {
+  position: absolute;
+  top: var(--space-6);
+  right: var(--space-6);
+  font-size: 13px;
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+/* ── See all work CTA ─────────────────────────── */
+
+.selected-work__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-7);
+}
+
+.selected-work__cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text);
+  font-size: 15px;
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  position: relative;
+  padding: var(--space-2) 0;
+}
+
+.selected-work__cta-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .selected-work__cta-link:hover::after {
+    transform: scaleX(1);
+  }
+  .selected-work__cta-link:hover .selected-work__cta-arrow {
+    transform: translateX(4px);
+  }
+}
+
+.selected-work__cta-arrow {
+  color: var(--accent);
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+/* ── Responsive ──────────────────────────────── */
+
+@media (max-width: 900px) {
+  .selected-work {
+    padding: var(--space-8) var(--space-5);
+  }
+  .selected-work__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+  .selected-work__body {
+    padding: var(--space-5);
+  }
+}
