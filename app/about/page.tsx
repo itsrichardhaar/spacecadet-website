@@ -1,8 +1,10 @@
+'use client';
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { useInView } from '../hooks/useInView';
-import './About.css';
+import { useInView } from '@/hooks/useInView';
+import './about.css';
 
 const values = [
   {
@@ -73,7 +75,7 @@ const About: React.FC = () => {
         <div className="about-hero__inner">
           <p className="section-eyebrow animate-fade-up" style={{ animationDelay: '0ms' }}>About Us</p>
           <h1 className="about-hero__heading animate-fade-up" style={{ animationDelay: '80ms' }}>
-            We're a studio built<br />
+            We&apos;re a studio built<br />
             <span className="gradient-text">for ambitious work</span>
           </h1>
           <p className="about-hero__sub animate-fade-up" style={{ animationDelay: '180ms' }}>
@@ -92,7 +94,7 @@ const About: React.FC = () => {
               We started in a small office with four people and a belief that most agencies were choosing between good design and good engineering. We refused to make that trade.
             </p>
             <p>
-              Over six years, we've grown into a tight-knit team of designers, engineers, strategists, and AI specialists — all working in lockstep to deliver products that are both beautiful and bulletproof.
+              Over six years, we&apos;ve grown into a tight-knit team of designers, engineers, strategists, and AI specialists — all working in lockstep to deliver products that are both beautiful and bulletproof.
             </p>
             <p>
               Every engagement is a collaboration. We embed with your team, learn your business, and treat your problem like our own.
@@ -173,8 +175,8 @@ const About: React.FC = () => {
       <section ref={ctaRef} className={`about-cta ${ctaInView ? 'in-view' : ''}`}>
         <div className="about-cta__inner scroll-fade-up">
           <h2>Want to work with us?</h2>
-          <p>We'd love to learn about your project.</p>
-          <Link to="/contact" className="btn btn--primary">
+          <p>We&apos;d love to learn about your project.</p>
+          <Link href="/contact" className="btn btn--primary">
             Get in Touch
             <ArrowForwardIcon className="btn__arrow" fontSize="small" />
           </Link>

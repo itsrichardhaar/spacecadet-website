@@ -1,8 +1,10 @@
+'use client';
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { useInView } from '../hooks/useInView';
-import './Home.css';
+import { useInView } from '@/hooks/useInView';
+import './home.css';
 
 const stats = [
   { value: '120+', label: 'Projects Delivered' },
@@ -60,11 +62,11 @@ const Home: React.FC = () => {
             AI integration, and marketing strategy for ambitious companies.
           </p>
           <div className="hero__actions animate-fade-up" style={{ animationDelay: '280ms' }}>
-            <Link to="/solutions" className="btn btn--primary">
+            <Link href="/solutions" className="btn btn--primary">
               Explore Solutions
               <ArrowForwardIcon className="btn__arrow" fontSize="small" />
             </Link>
-            <Link to="/contact" className="btn btn--ghost">
+            <Link href="/contact" className="btn btn--ghost">
               Start a Project
               <ArrowForwardIcon className="btn__arrow" fontSize="small" />
             </Link>
@@ -111,7 +113,7 @@ const Home: React.FC = () => {
                 <div className="service-card__icon">{s.icon}</div>
                 <h3 className="service-card__title">{s.title}</h3>
                 <p className="service-card__desc">{s.desc}</p>
-                <Link to="/solutions" className="service-card__link">
+                <Link href="/solutions" className="service-card__link">
                   Learn more
                   <ArrowForwardIcon className="service-card__arrow" fontSize="small" />
                 </Link>
@@ -130,9 +132,9 @@ const Home: React.FC = () => {
         <div className="cta-band__inner scroll-fade-up">
           <h2 className="cta-band__title">Ready to launch something great?</h2>
           <p className="cta-band__sub">
-            Tell us about your project. We'll come back within 24 hours.
+            Tell us about your project. We&apos;ll come back within 24 hours.
           </p>
-          <Link to="/contact" className="btn btn--primary">
+          <Link href="/contact" className="btn btn--primary">
             Get in Touch
             <ArrowForwardIcon className="btn__arrow" fontSize="small" />
           </Link>

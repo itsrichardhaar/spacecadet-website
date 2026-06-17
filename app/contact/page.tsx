@@ -1,6 +1,8 @@
+'use client';
+
 import React, { useState } from 'react';
-import { useInView } from '../hooks/useInView';
-import './Contact.css';
+import { useInView } from '@/hooks/useInView';
+import './contact.css';
 
 type FormData = {
   name: string;
@@ -86,11 +88,11 @@ const Contact: React.FC = () => {
         <div className="contact-hero__inner">
           <p className="section-eyebrow animate-fade-up" style={{ animationDelay: '0ms' }}>Contact</p>
           <h1 className="contact-hero__heading animate-fade-up" style={{ animationDelay: '80ms' }}>
-            Let's build something<br />
+            Let&apos;s build something<br />
             <span className="gradient-text">remarkable together</span>
           </h1>
           <p className="contact-hero__sub animate-fade-up" style={{ animationDelay: '180ms' }}>
-            Tell us about your project. We'll review it and get back to you within one business day.
+            Tell us about your project. We&apos;ll review it and get back to you within one business day.
           </p>
         </div>
       </section>
@@ -103,7 +105,7 @@ const Contact: React.FC = () => {
           <div className="contact-info scroll-fade-up" style={{ transitionDelay: '0ms' }}>
             <h2>Get in touch</h2>
             <p className="contact-info__desc">
-              Whether you have a fully scoped project or just an idea, we'd love to hear from you. No obligation, no sales pitch — just a real conversation.
+              Whether you have a fully scoped project or just an idea, we&apos;d love to hear from you. No obligation, no sales pitch — just a real conversation.
             </p>
 
             <div className="contact-info__items">
@@ -140,7 +142,7 @@ const Contact: React.FC = () => {
               <div className="contact-success">
                 <div className="contact-success__icon">✓</div>
                 <h3>Message received!</h3>
-                <p>Thanks for reaching out. We'll get back to you within 24 hours.</p>
+                <p>Thanks for reaching out. We&apos;ll get back to you within 24 hours.</p>
               </div>
             ) : (
               <form className="contact-form" onSubmit={handleSubmit}>

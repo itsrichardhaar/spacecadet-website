@@ -1,13 +1,21 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
-import { Link, useLocation } from 'react-router-dom';
-import { ReactComponent as LogoMark } from '../assets/space_cadet_logo.svg';
+import { createPortal } from 'react-dom';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import LogoMark from './LogoMark';
 import './Navbar.css';
 
 const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const location = useLocation();
+  const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -17,7 +25,7 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     setMenuOpen(false);
-  }, [location]);
+  }, [pathname]);
 
   const desktopLinks = [
     { path: '/about', label: 'About' },
@@ -33,42 +41,43 @@ const Navbar: React.FC = () => {
     { path: '/contact', label: 'Contact' },
   ];
 
-  const mobileMenu = menuOpen
-    ? ReactDOM.createPortal(
-        <ul className="navbar__mobile-menu">
-          <button
-            className="navbar__mobile-close"
-            onClick={() => setMenuOpen(false)}
-            aria-label="Close menu"
-          >
-            <span />
-            <span />
-          </button>
-          {mobileLinks.map(({ path, label }) => (
-            <li key={path}>
-              <Link
-                to={path}
-                className={`navbar__link ${location.pathname === path ? 'navbar__link--active' : ''}`}
-              >
-                {label}
+  const mobileMenu =
+    mounted && menuOpen
+      ? createPortal(
+          <ul className="navbar__mobile-menu">
+            <button
+              className="navbar__mobile-close"
+              onClick={() => setMenuOpen(false)}
+              aria-label="Close menu"
+            >
+              <span />
+              <span />
+            </button>
+            {mobileLinks.map(({ path, label }) => (
+              <li key={path}>
+                <Link
+                  href={path}
+                  className={`navbar__link ${pathname === path ? 'navbar__link--active' : ''}`}
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link href="/contact" className="navbar__cta">
+                Get Started
               </Link>
             </li>
-          ))}
-          <li>
-            <Link to="/contact" className="navbar__cta">
-              Get Started
-            </Link>
-          </li>
-        </ul>,
-        document.body
-      )
-    : null;
+          </ul>,
+          document.body
+        )
+      : null;
 
   return (
     <>
       <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
         <div className="navbar__inner">
-          <Link to="/" className="navbar__logo">
+          <Link href="/" className="navbar__logo">
             <LogoMark className="navbar__logo-mark" />
             <span className="navbar__logo-text">Spacecadet</span>
           </Link>
@@ -77,15 +86,15 @@ const Navbar: React.FC = () => {
             {desktopLinks.map(({ path, label }) => (
               <li key={path}>
                 <Link
-                  to={path}
-                  className={`navbar__link ${location.pathname === path ? 'navbar__link--active' : ''}`}
+                  href={path}
+                  className={`navbar__link ${pathname === path ? 'navbar__link--active' : ''}`}
                 >
                   {label}
                 </Link>
               </li>
             ))}
             <li>
-              <Link to="/contact" className="navbar__cta">
+              <Link href="/contact" className="navbar__cta">
                 Get Started
               </Link>
             </li>

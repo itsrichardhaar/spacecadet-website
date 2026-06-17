@@ -1,9 +1,11 @@
+'use client';
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import CheckIcon from '@mui/icons-material/Check';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { useInView } from '../hooks/useInView';
-import './Pricing.css';
+import { useInView } from '@/hooks/useInView';
+import './pricing.css';
 
 const plans = [
   {
@@ -95,7 +97,7 @@ const Pricing: React.FC = () => {
           </h1>
           <p className="pricing-hero__sub animate-fade-up" style={{ animationDelay: '180ms' }}>
             Every engagement is custom-scoped. Pick a package that fits your stage
-            and we'll align on details together.
+            and we&apos;ll align on details together.
           </p>
         </div>
       </section>
@@ -131,7 +133,7 @@ const Pricing: React.FC = () => {
               </ul>
 
               <Link
-                to="/contact"
+                href="/contact"
                 className={`plan-card__cta ${plan.featured ? 'plan-card__cta--featured' : ''}`}
               >
                 {plan.cta}
@@ -179,9 +181,9 @@ const Pricing: React.FC = () => {
         <div className="cta-band__inner scroll-fade-up">
           <h2 className="cta-band__title">Ready to scope your project?</h2>
           <p className="cta-band__sub">
-            Tell us what you're building. We'll come back within 24 hours.
+            Tell us what you&apos;re building. We&apos;ll come back within 24 hours.
           </p>
-          <Link to="/contact" className="btn btn--primary">
+          <Link href="/contact" className="btn btn--primary">
             Start the Conversation
             <ArrowForwardIcon className="btn__arrow" fontSize="small" />
           </Link>

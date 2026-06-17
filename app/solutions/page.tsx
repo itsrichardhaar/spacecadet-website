@@ -1,8 +1,10 @@
+'use client';
+
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { useInView } from '../hooks/useInView';
-import './Solutions.css';
+import { useInView } from '@/hooks/useInView';
+import './solutions.css';
 
 type Category = 'all' | 'dev' | 'design' | 'ai' | 'marketing';
 
@@ -192,8 +194,8 @@ const Solutions: React.FC = () => {
       <section ref={ctaRef} className={`solutions-cta ${ctaInView ? 'in-view' : ''}`}>
         <div className="solutions-cta__inner scroll-fade-up">
           <h2>Not sure what you need?</h2>
-          <p>Book a free 30-min call and we'll help you figure it out.</p>
-          <Link to="/contact" className="btn btn--primary">
+          <p>Book a free 30-min call and we&apos;ll help you figure it out.</p>
+          <Link href="/contact" className="btn btn--primary">
             Schedule a Call
             <ArrowForwardIcon className="btn__arrow" fontSize="small" />
           </Link>
