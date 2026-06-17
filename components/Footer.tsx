@@ -24,6 +24,7 @@ const Footer: React.FC = () => {
               <li><Link href="/">Home</Link></li>
               <li><Link href="/about">About</Link></li>
               <li><Link href="/capabilities">Capabilities</Link></li>
+              <li><Link href="/approach">Approach</Link></li>
               <li><Link href="/contact">Contact</Link></li>
             </ul>
           </div>
