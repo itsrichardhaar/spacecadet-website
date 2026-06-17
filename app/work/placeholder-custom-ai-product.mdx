@@ -1,0 +1,60 @@
+---
+title: "A custom AI product for a Series-A logistics startup"
+slug: placeholder-custom-ai-product
+date: "2026-05-15"
+client: "A Series-A logistics startup (placeholder)"
+capability: custom-ai-products
+year: 2026
+industry: Logistics
+engagementLength: "12 weeks"
+teamSize: 3
+coverImage: /work/placeholder-custom-ai-product/cover.svg
+detailImage: /work/placeholder-custom-ai-product/detail.svg
+metrics:
+  - label: Annual SaaS spend replaced
+    value: "$84K"
+  - label: Vendor tools retired
+    value: "4"
+  - label: Build duration
+    value: "12 weeks"
+techStack:
+  - Claude 3.5 Sonnet
+  - Next.js 15
+  - Postgres + pgvector
+  - Inngest
+  - Tigris
+draft: true
+---
+
+## The problem
+
+The team was paying for four overlapping vendor tools that each owned a slice of their dispatch workflow — pricing, ETA prediction, route adjustment, and customer notifications. None of the tools could see the others' data. The dispatch operators were copy-pasting between four tabs and quietly making their own decisions about which numbers to trust.
+
+The team had tried building an integration layer between the vendors, but every release cycle one of the vendor APIs shifted and the layer broke. The case for owning the AI instead of renting it was clear; the case for who would build it was less clear.
+
+## What we built
+
+A single owned dispatch agent that reads the company's operational data directly and produces the four signals the team used to buy separately. It runs on the team's own infrastructure, talks to their existing Postgres warehouse, and exposes a small UI surfaced inside the existing dispatch dashboard.
+
+- Replaced four vendor SaaS subscriptions with one owned service
+- Integrated into the team's existing dispatch UI via a thin web component
+- Eval suite of ~80 cases hand-curated from six months of real dispatch decisions
+- Daily regression check against the live eval suite; failures alert oncall
+
+## Approach
+
+We ran the standard build cadence:
+
+1. **Week 1 — Discovery.** Read the team's operational Postgres, mapped the four vendor flows, and identified the ten edge cases that broke most often.
+2. **Weeks 2–3 — Eval-first build.** Wrote the eval suite before any model code. The first 30 cases came from real dispatcher transcripts; the next 50 came from synthetic edges.
+3. **Weeks 4–8 — Build.** Replaced one vendor flow at a time, validating each against the eval suite before retiring the vendor subscription.
+4. **Weeks 9–10 — Ship.** Rolled out behind a feature flag, ran the agent in shadow mode for a week, then flipped to primary.
+5. **Weeks 11–12 — Handoff.** Deployment runbook, eval suite documentation, two-week embedded support window for the team's first oncall rotation.
+
+## Outcome
+
+Six months in, the team has not added a vendor SaaS subscription back. The eval suite has grown to ~140 cases; the team owns it. The build cost was less than two years of the prior vendor bill, and the dispatch UI is now used by three new operators hired since launch.
+
+<Quote name="Placeholder Name" title="CTO, Placeholder Logistics Co.">
+We stopped trusting "AI-powered" SaaS the day the agent went live. Three months later we were down to one dispatch tool and one bill, and the eval scores were the highest they have ever been.
+</Quote>

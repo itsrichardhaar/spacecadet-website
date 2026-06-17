@@ -50,19 +50,23 @@
   box-shadow: var(--focus-ring);
 }
 
-/* ── Cover (gradient placeholder until real images land in #19) ── */
+/* ── Cover (real images now that #19 has shipped the MDX schema) ── */
 
 .selected-work__cover {
   position: relative;
   aspect-ratio: 16 / 10;
-  background: var(--cover-grad);
   overflow: hidden;
 }
 
+.selected-work__cover-image,
 .selected-work__cover-detail {
   position: absolute;
   inset: 0;
-  background: var(--detail-grad);
+  background-size: cover;
+  background-position: center;
+}
+
+.selected-work__cover-detail {
   opacity: 0;
   transition: opacity var(--duration-base) var(--ease-out);
   pointer-events: none;
