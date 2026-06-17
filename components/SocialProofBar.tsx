@@ -1,47 +1,36 @@
 /**
  * Home page social-proof bar (section 2, directly below the hero).
  *
- * Desktop: infinite horizontal marquee of wordmark / logo entries,
- * pure-CSS transform animation (no JS, no RAF). Paused on hover.
- *
- * Mobile / touch / reduced-motion: marquee animation removed via CSS
- * media queries so iOS swipe gestures, pinch-zoom, and accessibility
- * preferences are never disturbed. On touch the strip becomes a
- * horizontal scroll if the entries overflow.
+ * Static row of up to 5 wordmark entries. The original #09 build was
+ * an infinite-marquee animation, but on a long page with the hero
+ * parallax + the rest of the motion vocabulary, the continuous
+ * transform animation contributed to scroll feeling sluggish. Now
+ * the section is purely typographic and renders identically on all
+ * devices.
  *
  * Empty `socialProofEntries` → the section renders nothing (cleanly
- * removed from layout). Useful when no real logos are ready yet.
+ * removed from layout).
  */
 import { socialProofEntries } from '@/lib/socialProof';
 import './SocialProofBar.css';
 
+const MAX_ENTRIES = 5;
+
 export default function SocialProofBar() {
-  if (socialProofEntries.length === 0) return null;
+  const entries = socialProofEntries.slice(0, MAX_ENTRIES);
+  if (entries.length === 0) return null;
 
   return (
     <section className="social-proof" aria-label="Trusted by ambitious teams">
       <div className="social-proof__inner">
         <p className="social-proof__eyebrow">Trusted by ambitious teams</p>
-        <div className="social-proof__marquee">
-          <div className="social-proof__track">
-            {socialProofEntries.map((entry, i) => (
-              <span key={`a-${i}`} className="social-proof__item">
-                {entry.label}
-              </span>
-            ))}
-            {/* Duplicate track for seamless loop. aria-hidden so screen
-                readers don't announce each entry twice. */}
-            {socialProofEntries.map((entry, i) => (
-              <span
-                key={`b-${i}`}
-                className="social-proof__item"
-                aria-hidden="true"
-              >
-                {entry.label}
-              </span>
-            ))}
-          </div>
-        </div>
+        <ul className="social-proof__row">
+          {entries.map((entry, i) => (
+            <li key={i} className="social-proof__item">
+              {entry.label}
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

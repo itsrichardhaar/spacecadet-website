@@ -26,6 +26,4 @@ export const socialProofEntries: SocialProofEntry[] = [
   { label: 'Foundry AI' },
   { label: 'Northwind' },
   { label: 'Cascade' },
-  { label: 'Beacon' },
-  { label: 'Quantum Loop' },
 ];
