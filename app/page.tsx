@@ -1,9 +1,8 @@
 'use client';
 
 import React, { useRef } from 'react';
-import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
 import Button from '@/components/Button';
+import CapabilitiesCinematic from '@/components/CapabilitiesCinematic';
 import { useInView } from '@/hooks/useInView';
 import {
   RevealText,
@@ -20,32 +19,8 @@ const stats = [
   { value: '4',    label: 'Core Disciplines' },
 ];
 
-const services = [
-  {
-    icon: '⌨️',
-    title: 'Software Development',
-    desc: 'From MVPs to enterprise platforms, we craft robust, scalable software using modern tech stacks — React, Node, Python, and more.',
-  },
-  {
-    icon: '✦',
-    title: 'Product & UX Design',
-    desc: 'We design intuitive products that users love. Deep research, wireframes, design systems, and pixel-perfect interfaces.',
-  },
-  {
-    icon: '◈',
-    title: 'AI Consulting',
-    desc: 'We help you integrate AI strategically — from LLM-powered features to intelligent automation and data-driven products.',
-  },
-  {
-    icon: '◎',
-    title: 'Marketing Strategy',
-    desc: 'Launch, grow, and scale. We build brand narratives, digital campaigns, and growth strategies that convert.',
-  },
-];
-
 const Home: React.FC = () => {
   const { ref: statsRef, inView: statsInView }       = useInView<HTMLElement>();
-  const { ref: servicesRef, inView: servicesInView } = useInView<HTMLElement>();
   const { ref: ctaRef, inView: ctaInView }           = useInView<HTMLElement>();
 
   const glow1Ref = useRef<HTMLDivElement>(null);
@@ -116,35 +91,8 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* ── Services ──────────────────────────────── */}
-      <section
-        ref={servicesRef}
-        className={`services ${servicesInView ? 'in-view' : ''}`}
-      >
-        <div className="services__inner">
-          <div className="section-header scroll-fade-up" style={{ transitionDelay: '0ms' }}>
-            <p className="section-eyebrow">What we do</p>
-            <h2 className="section-title">Four disciplines,<br />one cohesive team</h2>
-          </div>
-          <div className="services__grid">
-            {services.map((s, i) => (
-              <div
-                className="service-card scroll-fade-up"
-                key={s.title}
-                style={{ transitionDelay: `${80 + i * 100}ms` }}
-              >
-                <div className="service-card__icon">{s.icon}</div>
-                <h3 className="service-card__title">{s.title}</h3>
-                <p className="service-card__desc">{s.desc}</p>
-                <Link href="/solutions" className="service-card__link">
-                  Learn more
-                  <ArrowRight className="service-card__arrow" size={16} aria-hidden="true" />
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ── Capabilities (cinematic moment #2) ────── */}
+      <CapabilitiesCinematic />
 
       {/* ── CTA Band ──────────────────────────────── */}
       <section
