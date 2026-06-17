@@ -3,6 +3,7 @@
 import React, { useRef } from 'react';
 import Button from '@/components/Button';
 import CapabilitiesCinematic from '@/components/CapabilitiesCinematic';
+import SocialProofBar from '@/components/SocialProofBar';
 import { useInView } from '@/hooks/useInView';
 import {
   RevealText,
@@ -12,15 +13,7 @@ import {
 } from '@/hooks/motionPrimitives';
 import './home.css';
 
-const stats = [
-  { value: '120+', label: 'Projects Delivered' },
-  { value: '6 yrs', label: 'Industry Experience' },
-  { value: '40+',  label: 'Happy Clients' },
-  { value: '4',    label: 'Core Disciplines' },
-];
-
 const Home: React.FC = () => {
-  const { ref: statsRef, inView: statsInView }       = useInView<HTMLElement>();
   const { ref: ctaRef, inView: ctaInView }           = useInView<HTMLElement>();
 
   const glow1Ref = useRef<HTMLDivElement>(null);
@@ -72,24 +65,8 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* ── Stats ─────────────────────────────────── */}
-      <section
-        ref={statsRef}
-        className={`stats ${statsInView ? 'in-view' : ''}`}
-      >
-        <div className="stats__inner">
-          {stats.map((s, i) => (
-            <div
-              className="stats__item scroll-fade-up"
-              key={s.label}
-              style={{ transitionDelay: `${i * 80}ms` }}
-            >
-              <span className="stats__value">{s.value}</span>
-              <span className="stats__label">{s.label}</span>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* ── Social proof bar (Home section 2) ─────── */}
+      <SocialProofBar />
 
       {/* ── Capabilities (cinematic moment #2) ────── */}
       <CapabilitiesCinematic />

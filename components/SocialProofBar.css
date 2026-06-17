@@ -1,0 +1,118 @@
+.social-proof {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-elevated);
+  padding: var(--space-6) 0;
+  overflow: hidden;
+}
+
+.social-proof__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.social-proof__eyebrow {
+  text-align: center;
+  font-size: var(--font-size-eyebrow);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--space-5);
+}
+
+/* Mask the marquee edges so items fade in / out instead of hard-popping. */
+.social-proof__marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+}
+
+.social-proof__track {
+  display: flex;
+  align-items: center;
+  gap: var(--space-7);
+  width: max-content;
+  animation: social-proof-scroll 30s linear infinite;
+  will-change: transform;
+}
+
+.social-proof__marquee:hover .social-proof__track {
+  animation-play-state: paused;
+}
+
+.social-proof__item {
+  font-size: 18px;
+  font-weight: var(--font-weight-medium);
+  color: var(--text);
+  opacity: 0.55;
+  letter-spacing: var(--letter-spacing-tight);
+  white-space: nowrap;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.social-proof__item:hover {
+  opacity: 1;
+}
+
+@keyframes social-proof-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Touch devices: kill marquee, allow horizontal scroll if overflow. */
+@media (pointer: coarse) {
+  .social-proof__marquee {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .social-proof__marquee::-webkit-scrollbar {
+    display: none;
+  }
+  .social-proof__track {
+    animation: none;
+    width: auto;
+  }
+}
+
+/* Reduced motion: no marquee. */
+@media (prefers-reduced-motion: reduce) {
+  .social-proof__track {
+    animation: none;
+  }
+}
+
+/* Narrow viewports: no marquee, allow scroll if overflow. */
+@media (max-width: 768px) {
+  .social-proof {
+    padding: var(--space-5) 0;
+  }
+  .social-proof__marquee {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .social-proof__marquee::-webkit-scrollbar {
+    display: none;
+  }
+  .social-proof__track {
+    animation: none;
+    width: auto;
+    padding: 0 var(--space-5);
+  }
+  .social-proof__item {
+    font-size: 15px;
+  }
+}
