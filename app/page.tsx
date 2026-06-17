@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import Button from '@/components/Button';
 import { useInView } from '@/hooks/useInView';
+import { RevealText } from '@/hooks/motionPrimitives';
 import './home.css';
 
 const stats = [
@@ -54,10 +55,9 @@ const Home: React.FC = () => {
             <span className="hero__badge-dot" />
             Available for new projects
           </div>
-          <h1 className="hero__heading animate-fade-up" style={{ animationDelay: '80ms' }}>
-            Ready. Set.
-            <span className="hero__heading-gradient"> Launch.</span>
-          </h1>
+          <RevealText as="h1" unit="char" stagger={25} trigger="load" className="hero__heading">
+            Ready. Set.<span className="hero__heading-gradient"> Launch.</span>
+          </RevealText>
           <p className="hero__sub animate-fade-up" style={{ animationDelay: '180ms' }}>
             Spacecadet is a multidisciplinary studio delivering software development, product design,
             AI integration, and marketing strategy for ambitious companies.
