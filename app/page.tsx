@@ -7,7 +7,6 @@ import HowWeEngage from '@/components/HowWeEngage';
 import InsightsPreview from '@/components/InsightsPreview';
 import SelectedWork from '@/components/SelectedWork';
 import SocialProofBar from '@/components/SocialProofBar';
-import { useInView } from '@/hooks/useInView';
 import {
   RevealText,
   useMousePositionParallax,
@@ -17,8 +16,6 @@ import {
 import './home.css';
 
 const Home: React.FC = () => {
-  const { ref: ctaRef, inView: ctaInView }           = useInView<HTMLElement>();
-
   const glow1Ref = useRef<HTMLDivElement>(null);
   const glow2Ref = useRef<HTMLDivElement>(null);
   useParallax(glow1Ref, 0.5);
@@ -31,6 +28,16 @@ const Home: React.FC = () => {
     y: 0,
     scale: 0.96,
     delay: 1.7,
+    duration: 0.5,
+  });
+
+  // Final CTA band: background ember wash parallax + button scale-fade.
+  const ctaGlowRef = useRef<HTMLDivElement>(null);
+  useParallax(ctaGlowRef, 0.6);
+  const ctaButtonRef = useScrollReveal<HTMLDivElement>({
+    y: 0,
+    scale: 0.96,
+    delay: 0.4,
     duration: 0.5,
   });
 
@@ -84,17 +91,29 @@ const Home: React.FC = () => {
       <InsightsPreview />
 
       {/* ── CTA Band ──────────────────────────────── */}
-      <section
-        ref={ctaRef}
-        className={`cta-band ${ctaInView ? 'in-view' : ''}`}
-      >
-        <div className="cta-band__glow" />
-        <div className="cta-band__inner scroll-fade-up">
-          <h2 className="cta-band__title">Ready to launch something great?</h2>
-          <p className="cta-band__sub">
-            Tell us about your project. We&apos;ll come back within 24 hours.
-          </p>
-          <Button href="/contact">Get in Touch</Button>
+      <section className="cta-band">
+        <div ref={ctaGlowRef} className="cta-band__glow" aria-hidden="true" />
+        <div className="cta-band__inner">
+          <p className="section-eyebrow cta-band__eyebrow">Get started</p>
+          <RevealText
+            as="h2"
+            unit="word"
+            stagger={60}
+            className="cta-band__title"
+          >
+            Have an AI problem you&apos;re trying to solve?
+          </RevealText>
+          <RevealText
+            as="p"
+            unit="line"
+            stagger={80}
+            className="cta-band__sub"
+          >
+            Tell us what you&apos;re trying to build. We respond within one business day.
+          </RevealText>
+          <div ref={ctaButtonRef} className="cta-band__action">
+            <Button href="/contact">Book a discovery call</Button>
+          </div>
         </div>
       </section>
 
