@@ -2,7 +2,8 @@
 
 import React from 'react';
 import Link from 'next/link';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { ArrowRight } from 'lucide-react';
+import Button from '@/components/Button';
 import { useInView } from '@/hooks/useInView';
 import './home.css';
 
@@ -62,14 +63,8 @@ const Home: React.FC = () => {
             AI integration, and marketing strategy for ambitious companies.
           </p>
           <div className="hero__actions animate-fade-up" style={{ animationDelay: '280ms' }}>
-            <Link href="/solutions" className="btn btn--primary">
-              Explore Solutions
-              <ArrowForwardIcon className="btn__arrow" fontSize="small" />
-            </Link>
-            <Link href="/contact" className="btn btn--ghost">
-              Start a Project
-              <ArrowForwardIcon className="btn__arrow" fontSize="small" />
-            </Link>
+            <Button href="/solutions">Explore Solutions</Button>
+            <Button href="/contact" variant="ghost">Start a Project</Button>
           </div>
         </div>
       </section>
@@ -115,7 +110,7 @@ const Home: React.FC = () => {
                 <p className="service-card__desc">{s.desc}</p>
                 <Link href="/solutions" className="service-card__link">
                   Learn more
-                  <ArrowForwardIcon className="service-card__arrow" fontSize="small" />
+                  <ArrowRight className="service-card__arrow" size={16} aria-hidden="true" />
                 </Link>
               </div>
             ))}
@@ -134,10 +129,7 @@ const Home: React.FC = () => {
           <p className="cta-band__sub">
             Tell us about your project. We&apos;ll come back within 24 hours.
           </p>
-          <Link href="/contact" className="btn btn--primary">
-            Get in Touch
-            <ArrowForwardIcon className="btn__arrow" fontSize="small" />
-          </Link>
+          <Button href="/contact">Get in Touch</Button>
         </div>
       </section>
 
