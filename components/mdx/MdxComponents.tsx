@@ -6,8 +6,34 @@
  * paths so client-side navigation stays smooth.
  */
 import Link, { type LinkProps } from 'next/link';
-import type { AnchorHTMLAttributes, ComponentPropsWithoutRef } from 'react';
+import type {
+  AnchorHTMLAttributes,
+  ComponentPropsWithoutRef,
+  ReactNode,
+} from 'react';
 import type { MDXComponents } from 'mdx/types';
+
+interface QuoteProps {
+  name: string;
+  title: string;
+  children: ReactNode;
+}
+
+/**
+ * Pull-quote with author attribution. Used in case-study MDX bodies
+ * to render the technical-buyer quote in section 8.
+ */
+function Quote({ name, title, children }: QuoteProps) {
+  return (
+    <figure className="mdx__quote">
+      <blockquote className="mdx__quote-body">{children}</blockquote>
+      <figcaption className="mdx__quote-author">
+        <span className="mdx__quote-name">{name}</span>
+        <span className="mdx__quote-title">{title}</span>
+      </figcaption>
+    </figure>
+  );
+}
 
 function MdxLink(props: AnchorHTMLAttributes<HTMLAnchorElement>) {
   const { href = '', children, ...rest } = props;
@@ -49,4 +75,5 @@ export const mdxComponents: MDXComponents = {
     <strong className="mdx__strong" {...props} />
   ),
   em: (props: ComponentPropsWithoutRef<'em'>) => <em className="mdx__em" {...props} />,
+  Quote,
 };

@@ -3,27 +3,43 @@
 /**
  * Home page "Selected work" section.
  *
- * 2–3 featured case-study tiles linking through to /work/[slug]. Each tile:
- * - Cover gradient that swaps to a detail gradient on hover (desktop only)
- * - Capability tag pill sourced from lib/capabilities (no duplicated literals)
- * - Title with an underline that draws in on hover
- * - Tile lifts ~4px on hover
+ * Reads case studies as a prop (fetched server-side via getCaseStudies
+ * in the parent server page) and renders them as 2–3 featured tiles.
  *
- * Entrance: stagger fade-up + slight scale on scroll-into-view via
- * useScrollReveal. Mobile / reduced-motion: collapses to simple fade-up via
- * the motion gates inside useScrollReveal.
+ * The fixture from #10 (lib/featuredWork) is retired; data now flows
+ * from MDX via lib/content/work.
  *
- * Until #19 ships the real Work MDX infrastructure, this reads from the
- * lib/featuredWork placeholder fixture. Swap is a single-file change.
+ * Each tile:
+ * - cover image that swaps to a detail image on hover (desktop only)
+ * - capability tag pill sourced from lib/capabilities
+ * - title with underline draw-in on hover
+ * - 4px tile lift on hover
+ *
+ * Entrance: stagger fade-up + slight scale via useScrollReveal.
+ * Mobile / reduced-motion: simple fade-up via the motion gates inside
+ * useScrollReveal.
  */
 import Link from 'next/link';
 import { capabilities } from '@/lib/capabilities';
-import { featuredWork, type FeaturedWorkItem } from '@/lib/featuredWork';
 import { RevealText, useScrollReveal } from '@/hooks/motionPrimitives';
 import './SelectedWork.css';
 
-export default function SelectedWork() {
-  if (featuredWork.length === 0) return null;
+export interface SelectedWorkEntry {
+  slug: string;
+  title: string;
+  summary: string;
+  capabilityId: string;
+  year: number;
+  coverImage: string;
+  detailImage?: string;
+}
+
+interface SelectedWorkProps {
+  studies: SelectedWorkEntry[];
+}
+
+export default function SelectedWork({ studies }: SelectedWorkProps) {
+  if (studies.length === 0) return null;
 
   return (
     <section className="selected-work">
@@ -36,8 +52,8 @@ export default function SelectedWork() {
         </header>
 
         <div className="selected-work__grid">
-          {featuredWork.map((item, i) => (
-            <Tile key={item.slug} item={item} index={i} />
+          {studies.map((entry, i) => (
+            <Tile key={entry.slug} entry={entry} index={i} />
           ))}
         </div>
 
@@ -52,38 +68,41 @@ export default function SelectedWork() {
   );
 }
 
-function Tile({ item, index }: { item: FeaturedWorkItem; index: number }) {
+function Tile({ entry, index }: { entry: SelectedWorkEntry; index: number }) {
   const ref = useScrollReveal<HTMLAnchorElement>({
     y: 28,
     scale: 0.97,
     delay: index * 0.08,
     duration: 0.6,
   });
-  const capabilityName = capabilities.find((c) => c.id === item.capability)?.name;
+  const capabilityName =
+    capabilities.find((c) => c.id === entry.capabilityId)?.name ?? entry.capabilityId;
 
   return (
     <Link
       ref={ref}
-      href={`/work/${item.slug}`}
+      href={`/work/${entry.slug}`}
       className="selected-work__tile"
-      style={
-        {
-          '--cover-grad': item.coverGradient,
-          '--detail-grad': item.detailGradient,
-        } as React.CSSProperties
-      }
     >
       <div className="selected-work__cover">
-        <span className="selected-work__cover-detail" aria-hidden="true" />
+        <div
+          className="selected-work__cover-image"
+          style={{ backgroundImage: `url(${entry.coverImage})` }}
+        />
+        {entry.detailImage && (
+          <div
+            className="selected-work__cover-detail"
+            style={{ backgroundImage: `url(${entry.detailImage})` }}
+            aria-hidden="true"
+          />
+        )}
       </div>
       <div className="selected-work__body">
-        {capabilityName && (
-          <span className="selected-work__tag">{capabilityName}</span>
-        )}
-        <h3 className="selected-work__title">{item.title}</h3>
-        <p className="selected-work__summary">{item.summary}</p>
+        <span className="selected-work__tag">{capabilityName}</span>
+        <h3 className="selected-work__title">{entry.title}</h3>
+        <p className="selected-work__summary">{entry.summary}</p>
         <span className="selected-work__year" aria-hidden="true">
-          {item.year}
+          {entry.year}
         </span>
       </div>
     </Link>

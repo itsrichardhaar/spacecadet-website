@@ -1,0 +1,58 @@
+---
+title: "AI integration across a healthcare data platform"
+slug: placeholder-ai-integration
+date: "2026-04-22"
+client: "A healthcare data platform (placeholder, name withheld for HIPAA)"
+capability: ai-integrations
+year: 2026
+industry: Healthcare
+engagementLength: "8 weeks"
+teamSize: 2
+coverImage: /work/placeholder-ai-integration/cover.svg
+detailImage: /work/placeholder-ai-integration/detail.svg
+metrics:
+  - label: Manual triage hours eliminated weekly
+    value: "62"
+  - label: Vendor classification API retired
+    value: "1"
+  - label: Eval accuracy at launch
+    value: "94%"
+techStack:
+  - Claude 3.5 Sonnet
+  - Python
+  - FastAPI
+  - Postgres
+  - LangSmith
+draft: true
+---
+
+## The problem
+
+The platform's triage team was spending most of every day classifying incoming patient inquiries by urgency. They had been paying a vendor for a classification API that needed manual review on roughly half its outputs. The team was effectively the eval suite for a black-box vendor model, and the vendor would not share their training data, evaluation methodology, or roadmap.
+
+When HIPAA compliance review flagged the vendor's data-residency story as a risk, the team had a hard deadline to replace it.
+
+## What we built
+
+A drop-in classifier service embedded inside the platform's existing FastAPI backend. It reads from the same Postgres tables the triage team already uses, classifies incoming inquiries against a 14-category taxonomy, and surfaces a confidence score that drives the team's review queue.
+
+- Data never leaves the platform's own infrastructure
+- Owned eval suite of ~200 historical inquiries, classified by senior triage staff
+- Confidence threshold tuned per category so high-stakes categories route to human review
+- Telemetry dashboard for the team's clinical director to monitor classification drift
+
+## Approach
+
+1. **Week 1 — Discovery + data access.** Set up read access to the platform's Postgres in a HIPAA-compliant sandbox. No synthetic data — real inquiries from week 1.
+2. **Week 2 — Eval suite.** Senior triage staff classified 200 historical inquiries. We froze that as the source of truth and never re-labelled it.
+3. **Weeks 3–5 — Build.** Iterated against the eval suite. Every model change had to score at least as well as the previous version on the high-stakes categories.
+4. **Weeks 6–7 — Integration.** Replaced the vendor API in the existing classification flow. Ran in shadow for a week, with the team comparing outputs side-by-side.
+5. **Week 8 — Cutover + handoff.** Retired the vendor subscription. Two-week support window for monitoring drift and tuning thresholds.
+
+## Outcome
+
+The triage team got 62 hours per week back — time they redirected toward higher-acuity case review. The classification eval has held above 94% for the four months since launch; the team owns the eval suite and the model code, and they have a clear path to swap the underlying model when a better one ships.
+
+<Quote name="Placeholder Name" title="Clinical Director, Placeholder Health Platform">
+We stopped renting our triage from a vendor that could not show us their math. Now the math is ours, and our scores are higher than the vendor's ever were.
+</Quote>

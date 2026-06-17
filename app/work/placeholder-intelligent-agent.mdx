@@ -1,0 +1,58 @@
+---
+title: "An agentic workflow for a B2B SaaS ops team"
+slug: placeholder-intelligent-agent
+date: "2026-03-30"
+client: "A B2B SaaS company (placeholder, anonymized)"
+capability: agents-automation
+year: 2026
+industry: B2B SaaS
+engagementLength: "10 weeks"
+teamSize: 3
+coverImage: /work/placeholder-intelligent-agent/cover.svg
+detailImage: /work/placeholder-intelligent-agent/detail.svg
+metrics:
+  - label: Ops tickets resolved automatically
+    value: "71%"
+  - label: Mean handle time reduction
+    value: "47%"
+  - label: Eval suite size at launch
+    value: "180"
+techStack:
+  - Claude 3.5 Sonnet
+  - LangGraph
+  - Postgres + pgvector
+  - Temporal
+  - Datadog
+draft: true
+---
+
+## The problem
+
+The ops team was drowning in a long tail of repeatable internal-tool tickets — account provisioning, role changes, integration toggles, subscription adjustments. Each took 5–15 minutes of mostly mechanical work, but every ticket needed enough context that no rules engine had ever worked.
+
+The team had tried two off-the-shelf "agent" products. Both demoed beautifully and then quietly produced wrong actions in production with no observability into why.
+
+## What we built
+
+A multi-step agent that reads incoming tickets, pulls context from the company's existing internal systems, executes the action via owned tools, and writes a transcript back into the ticketing system for the human reviewer.
+
+- Multi-step planning with explicit go / no-go gates on actions that touch billing
+- Owned tool definitions — the agent calls the company's existing internal APIs, not opaque vendor adapters
+- Eval suite of 180 historical tickets, classified by an ops lead, with golden expected actions
+- Telemetry on every tool call, fed into Datadog with traces by ticket ID
+
+## Approach
+
+1. **Week 1 — Discovery.** Read the last six months of tickets. Identified the 23 ticket categories that covered 80% of volume.
+2. **Weeks 2–3 — Eval suite.** Built the 180-case suite. Required ops lead sign-off on every golden expected action.
+3. **Weeks 4–6 — Build.** Implemented the agent loop with LangGraph + Temporal for durable retries. Wrote the tool layer in pure Python — no vendor SDKs.
+4. **Weeks 7–8 — Shadow run.** Agent ran on real tickets but only wrote suggested actions to a side queue for human approval. Eval kept rising as we tuned.
+5. **Weeks 9–10 — Cutover + handoff.** Flipped to autonomous execution on the 14 lowest-risk categories. Kept the high-stakes 9 categories in human-approved mode by design.
+
+## Outcome
+
+71% of incoming tickets close automatically. The remaining 29% — the high-stakes ones — still go to a human, but with the agent's transcript and recommended action attached, so mean handle time on those dropped 47%. Eval suite has grown to 230 cases; the team owns it and runs it against every model upgrade.
+
+<Quote name="Placeholder Name" title="Head of Ops, Placeholder SaaS Co.">
+The previous two agent vendors looked great in demos and lied to us in production. This one has a transcript for every action and an eval score we can audit. That is the only kind of agent that has ever worked here.
+</Quote>

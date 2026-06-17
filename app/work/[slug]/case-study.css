@@ -1,0 +1,384 @@
+/* ── Cover hero ──────────────────────────────── */
+
+.case-study__cover {
+  position: relative;
+  height: clamp(360px, 60vh, 600px);
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.case-study__cover-image {
+  position: absolute;
+  inset: -10% -2% 0;
+  /* Slightly oversize so the parallax can move without exposing edges. */
+  background-size: cover;
+  background-position: center;
+  will-change: transform;
+}
+
+.case-study__cover-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 50%,
+    rgba(12, 10, 9, 0.7) 100%
+  );
+  pointer-events: none;
+}
+
+/* ── Header (sits below the cover) ───────────── */
+
+.case-study__header {
+  padding: var(--space-7) var(--space-6) var(--space-5);
+  border-top: 1px solid var(--border);
+}
+
+.case-study__header-inner {
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.case-study__header .section-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.case-study__capability-tag {
+  color: var(--accent);
+}
+
+.case-study__client {
+  color: var(--text-muted);
+  font-weight: var(--font-weight-medium);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 14px;
+}
+
+.insights-post__title,
+.case-study .insights-post__title {
+  /* InsightsAnimatedTitle reuses the .insights-post__title class — already
+     styled in app/insights/[slug]/post.css. Just confirm size here for case
+     studies. */
+  font-size: clamp(32px, 4.5vw, 52px);
+  font-weight: var(--font-weight-black);
+  letter-spacing: var(--letter-spacing-tighter);
+  line-height: 1.1;
+  margin-top: var(--space-3);
+}
+
+/* ── At-a-glance bar ─────────────────────────── */
+
+.case-study__glance {
+  padding: var(--space-5) var(--space-6);
+  background: var(--bg-elevated);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.case-study__glance-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-5);
+}
+
+.case-study__glance-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.case-study__glance-label {
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-eyebrow);
+  color: var(--text-muted);
+}
+
+.case-study__glance-value {
+  font-size: 15px;
+  color: var(--text);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.4;
+}
+
+/* ── MDX body ────────────────────────────────── */
+
+.case-study__body {
+  padding: var(--space-8) var(--space-6);
+}
+
+.case-study__body-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* MDX typography (h2, h3, p, ul, ol, blockquote, code, pre) is shared
+   with /insights via .mdx__* — see app/insights/[slug]/post.css */
+
+/* ── Quote (MDX <Quote> component) ───────────── */
+
+.mdx__quote {
+  margin: var(--space-7) 0;
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+}
+
+.mdx__quote-body {
+  font-size: clamp(18px, 1.8vw, 22px);
+  line-height: 1.55;
+  color: var(--text);
+  margin-bottom: var(--space-4);
+  font-style: italic;
+}
+
+.mdx__quote-body p {
+  margin: 0;
+}
+
+.mdx__quote-author {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mdx__quote-name {
+  font-size: 14px;
+  font-weight: var(--font-weight-bold);
+  color: var(--text);
+}
+
+.mdx__quote-title {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ── Outcome metrics with count-up ───────────── */
+
+.case-study__outcome {
+  padding: var(--space-8) var(--space-6);
+  background: var(--bg-elevated);
+  border-top: 1px solid var(--border);
+}
+
+.case-study__outcome-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.case-study__outcome-inner .section-eyebrow {
+  text-align: center;
+  margin-bottom: var(--space-6);
+}
+
+.case-study__metrics {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+
+.case-study__metric {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  text-align: center;
+  align-items: center;
+}
+
+.case-study__metric-value {
+  font-size: clamp(36px, 5vw, 52px);
+  font-weight: var(--font-weight-black);
+  letter-spacing: var(--letter-spacing-tighter);
+  color: var(--accent);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.case-study__metric-label {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  max-width: 240px;
+}
+
+/* ── Tech stack ──────────────────────────────── */
+
+.case-study__stack {
+  padding: var(--space-7) var(--space-6);
+  border-top: 1px solid var(--border);
+}
+
+.case-study__stack-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.case-study__stack-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.case-study__stack-item {
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+/* ── Footer / Up-next / CTA ──────────────────── */
+
+.case-study__footer {
+  padding: var(--space-8) var(--space-6) var(--space-9);
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+}
+
+.case-study__footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.case-study__up-next {
+  margin-bottom: var(--space-8);
+}
+
+.case-study__up-next-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.case-study__up-next-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  aspect-ratio: 16 / 10;
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  color: var(--text);
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .case-study__up-next-tile:hover {
+    transform: translateY(-3px);
+  }
+}
+
+.case-study__up-next-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(12, 10, 9, 0.1) 0%,
+    rgba(12, 10, 9, 0.7) 65%,
+    rgba(12, 10, 9, 0.9) 100%
+  );
+  z-index: 0;
+}
+
+.case-study__up-next-tag {
+  position: relative;
+  z-index: 1;
+  align-self: flex-start;
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-eyebrow);
+  color: var(--accent);
+  background: var(--accent-muted);
+  border: 1px solid var(--accent-muted);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-3);
+}
+
+.case-study__up-next-title {
+  position: relative;
+  z-index: 1;
+  font-size: 18px;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: 1.3;
+}
+
+.case-study__cta {
+  text-align: center;
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.case-study__cta-title {
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: var(--font-weight-extrabold);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: 1.25;
+}
+
+.case-study__cta-sub {
+  font-size: 16px;
+  color: var(--text-muted);
+  max-width: 540px;
+  line-height: 1.65;
+}
+
+/* ── Responsive ──────────────────────────────── */
+
+@media (max-width: 900px) {
+  .case-study__cover {
+    height: clamp(280px, 50vh, 440px);
+  }
+  .case-study__header,
+  .case-study__glance,
+  .case-study__body,
+  .case-study__outcome,
+  .case-study__stack,
+  .case-study__footer {
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+  }
+  .case-study__glance-inner {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+  .case-study__metrics {
+    grid-template-columns: 1fr;
+  }
+  .case-study__up-next-grid {
+    grid-template-columns: 1fr;
+  }
+}
