@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 import Button from '@/components/Button';
 import CapabilitiesCinematic from '@/components/CapabilitiesCinematic';
 import HowWeEngage from '@/components/HowWeEngage';
+import InsightsPreview from '@/components/InsightsPreview';
 import SelectedWork from '@/components/SelectedWork';
 import SocialProofBar from '@/components/SocialProofBar';
 import { useInView } from '@/hooks/useInView';
@@ -78,6 +79,9 @@ const Home: React.FC = () => {
 
       {/* ── How we engage snippet ─────────────────── */}
       <HowWeEngage />
+
+      {/* ── Insights preview ──────────────────────── */}
+      <InsightsPreview />
 
       {/* ── CTA Band ──────────────────────────────── */}
       <section
