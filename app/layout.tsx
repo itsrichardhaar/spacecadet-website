@@ -13,9 +13,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Spacecadet',
+  title: 'Spacecadet | Ready. Set. Launch.',
   description:
     'Spacecadet is a multidisciplinary studio delivering software development, product design, AI integration, and marketing strategy for ambitious companies.',
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/spacecadet192.png',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
