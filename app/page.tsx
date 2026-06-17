@@ -1,11 +1,15 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import Button from '@/components/Button';
 import { useInView } from '@/hooks/useInView';
-import { RevealText } from '@/hooks/motionPrimitives';
+import {
+  RevealText,
+  useMousePositionParallax,
+  useParallax,
+} from '@/hooks/motionPrimitives';
 import './home.css';
 
 const stats = [
@@ -43,13 +47,20 @@ const Home: React.FC = () => {
   const { ref: servicesRef, inView: servicesInView } = useInView<HTMLElement>();
   const { ref: ctaRef, inView: ctaInView }           = useInView<HTMLElement>();
 
+  const glow1Ref = useRef<HTMLDivElement>(null);
+  const glow2Ref = useRef<HTMLDivElement>(null);
+  useParallax(glow1Ref, 0.5);
+  useParallax(glow2Ref, 0.5);
+  useMousePositionParallax(glow1Ref, { strength: 14 });
+  useMousePositionParallax(glow2Ref, { strength: 10 });
+
   return (
     <div className="home">
 
       {/* ── Hero ──────────────────────────────────── */}
       <section className="hero">
-        <div className="hero__glow hero__glow--1" />
-        <div className="hero__glow hero__glow--2" />
+        <div ref={glow1Ref} className="hero__glow hero__glow--1" />
+        <div ref={glow2Ref} className="hero__glow hero__glow--2" />
         <div className="hero__inner">
           <div className="hero__badge animate-fade-up" style={{ animationDelay: '0ms' }}>
             <span className="hero__badge-dot" />
