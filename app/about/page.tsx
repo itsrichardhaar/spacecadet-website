@@ -1,8 +1,7 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import Button from '@/components/Button';
 import { useInView } from '@/hooks/useInView';
 import './about.css';
 
@@ -35,28 +34,28 @@ const team = [
     role: 'Co-Founder & CTO',
     bio: 'Full-stack engineer with 12 years building products at startups and Fortune 500s.',
     initials: 'RH',
-    color: '#4f7cff',
+    color: '#FF8A3D',
   },
   {
     name: 'Andrew Thomasson',
     role: 'Co-Founder & CFO',
     bio: 'Former lead at a top-tier commercial insurance consultancy.',
     initials: 'AT',
-    color: '#7c5cff',
+    color: '#FF8A3D',
   },
   {
     name: 'Tony Shaw',
     role: 'UI Design & AI Lead',
     bio: 'Has shipped AI features used by millions of people.',
     initials: 'TS',
-    color: '#5cb8ff',
+    color: '#FF8A3D',
   },
   {
     name: 'Neil Lewis',
     role: 'Marketing Director',
     bio: 'Growth strategist who has scaled brands from seed to Series C and beyond.',
     initials: 'NL',
-    color: '#ff5c9d',
+    color: '#FF8A3D',
   },
 ];
 
@@ -176,10 +175,7 @@ const About: React.FC = () => {
         <div className="about-cta__inner scroll-fade-up">
           <h2>Want to work with us?</h2>
           <p>We&apos;d love to learn about your project.</p>
-          <Link href="/contact" className="btn btn--primary">
-            Get in Touch
-            <ArrowForwardIcon className="btn__arrow" fontSize="small" />
-          </Link>
+          <Button href="/contact">Get in Touch</Button>
         </div>
       </section>
 

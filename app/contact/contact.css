@@ -8,7 +8,7 @@
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  background: var(--accent);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -281,9 +281,9 @@
 }
 
 .form-submit:hover:not(:disabled) {
-  background: #6290ff;
+  background: var(--accent-hover);
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(79, 124, 255, 0.4);
+  box-shadow: 0 8px 28px var(--accent-glow);
 }
 
 .form-submit:disabled {

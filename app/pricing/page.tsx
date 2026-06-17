@@ -2,8 +2,8 @@
 
 import React from 'react';
 import Link from 'next/link';
-import CheckIcon from '@mui/icons-material/Check';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { ArrowRight, Check } from 'lucide-react';
+import Button from '@/components/Button';
 import { useInView } from '@/hooks/useInView';
 import './pricing.css';
 
@@ -126,7 +126,7 @@ const Pricing: React.FC = () => {
               <ul className="plan-card__features">
                 {plan.features.map((f) => (
                   <li key={f} className="plan-card__feature">
-                    <CheckIcon className="plan-card__check" fontSize="small" />
+                    <Check className="plan-card__check" size={16} aria-hidden="true" />
                     {f}
                   </li>
                 ))}
@@ -137,7 +137,7 @@ const Pricing: React.FC = () => {
                 className={`plan-card__cta ${plan.featured ? 'plan-card__cta--featured' : ''}`}
               >
                 {plan.cta}
-                <ArrowForwardIcon className="btn__arrow" fontSize="small" />
+                <ArrowRight className="btn__arrow" size={18} aria-hidden="true" />
               </Link>
             </div>
           ))}
@@ -183,10 +183,7 @@ const Pricing: React.FC = () => {
           <p className="cta-band__sub">
             Tell us what you&apos;re building. We&apos;ll come back within 24 hours.
           </p>
-          <Link href="/contact" className="btn btn--primary">
-            Start the Conversation
-            <ArrowForwardIcon className="btn__arrow" fontSize="small" />
-          </Link>
+          <Button href="/contact">Start the Conversation</Button>
         </div>
       </section>
 
