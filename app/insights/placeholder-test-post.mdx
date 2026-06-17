@@ -1,0 +1,62 @@
+---
+title: "Why we build evals before features (placeholder)"
+slug: placeholder-test-post
+date: "2026-06-15"
+summary: "A placeholder Insights post used to verify the template renders end-to-end. Replace with real seed content in #31."
+tags:
+  - evals
+  - engineering
+  - placeholder
+draft: true
+---
+
+This is a placeholder post used to verify the Insights template renders correctly. The real seed posts land in issue #31.
+
+## The model is the easy part
+
+Most teams reach for the model first. They pick GPT-4 or Claude or Llama, write a prompt, and ship something that looks like AI. Three weeks later, it's silently regressing in production and nobody has the data to prove it.
+
+The hard parts of an AI product are downstream of the model:
+
+- The eval suite that tells you whether the output is right
+- The data pipeline that feeds it real, current information
+- The deployment story when the model provider deprecates a checkpoint
+- The UX that lets a non-engineer trust what it produced
+
+We treat all four as first-class engineering work, not as scope creep. The model is the easy part — and increasingly, it's also the commoditized part.
+
+## What an eval suite actually looks like
+
+Here is the minimum we ship on every Build engagement:
+
+```typescript
+interface EvalCase {
+  input: string;
+  expected: { mustContain?: string[]; mustNotContain?: string[] };
+  category: 'happy-path' | 'edge' | 'adversarial';
+}
+
+const cases: EvalCase[] = [
+  // ~50 cases hand-curated from real user transcripts,
+  // grouped across categories so regressions surface fast.
+];
+```
+
+Every PR runs the suite. Every release is gated on its score. When the score drops, we stop and find out why before the next change.
+
+> Evals are the product, not a checkpoint. The score is the contract for what *done* means.
+
+## The build order that follows from this
+
+If the model is the easy part and the eval is the contract, the natural build order is:
+
+1. **Real data access** in week 1 — synthetic data tells you nothing useful
+2. **Eval suite** by end of week 2 — at least 30 hand-curated cases
+3. **Baseline model** by end of week 3 — the simplest thing that could work
+4. **Iterate against the eval** for the rest of the engagement
+
+The team that builds this way ships AI products that improve in production. The team that doesn't ships something demo-ready and watches it rot.
+
+---
+
+If this resonates and you're scoping an AI build, [book a discovery call](/contact) — we'll be honest about whether your project is the right shape for us.
