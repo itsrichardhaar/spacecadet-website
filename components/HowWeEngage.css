@@ -1,0 +1,140 @@
+.how-we-engage {
+  padding: var(--space-8) var(--space-6);
+  background: var(--bg-elevated);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.how-we-engage__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.how-we-engage__header {
+  text-align: center;
+  margin-bottom: var(--space-7);
+}
+
+.how-we-engage__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+/* ── Card ────────────────────────────────────── */
+
+.how-we-engage__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-decoration: none;
+  position: relative;
+  transition:
+    border-color var(--duration-base) var(--ease-out),
+    background var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .how-we-engage__card:hover {
+    border-color: var(--accent);
+    background: var(--bg-elevated);
+    transform: translateY(-2px);
+  }
+  .how-we-engage__card:hover .how-we-engage__chevron {
+    transform: translateX(3px);
+    color: var(--accent-hover);
+  }
+}
+
+.how-we-engage__card:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.how-we-engage__chevron {
+  font-size: 24px;
+  font-weight: var(--font-weight-bold);
+  color: var(--accent);
+  line-height: 1;
+  transition: transform var(--duration-base) var(--ease-out),
+              color var(--duration-base) var(--ease-out);
+}
+
+.how-we-engage__card-name {
+  font-size: 18px;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: 1.3;
+  margin-top: var(--space-2);
+}
+
+.how-we-engage__card-scope {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ── See our full approach CTA ───────────────── */
+
+.how-we-engage__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-7);
+}
+
+.how-we-engage__cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text);
+  font-size: 15px;
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  position: relative;
+  padding: var(--space-2) 0;
+}
+
+.how-we-engage__cta-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .how-we-engage__cta-link:hover::after {
+    transform: scaleX(1);
+  }
+  .how-we-engage__cta-link:hover .how-we-engage__cta-arrow {
+    transform: translateX(4px);
+  }
+}
+
+.how-we-engage__cta-arrow {
+  color: var(--accent);
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+/* ── Responsive ──────────────────────────────── */
+
+@media (max-width: 900px) {
+  .how-we-engage {
+    padding: var(--space-7) var(--space-5);
+  }
+  .how-we-engage__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+}
