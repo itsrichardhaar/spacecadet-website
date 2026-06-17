@@ -2,7 +2,7 @@
 
 /**
  * Motion primitives — the entrance vocabulary that subsequent slices use
- * to apply consistent text and element reveals.
+ * to apply consistent text, element, and parallax reveals.
  *
  * Built on GSAP + ScrollTrigger + SplitText (all free post-GSAP-3.13).
  * Every primitive consumes the gates from `motionGates.ts` so accessibility
@@ -15,29 +15,34 @@
  *   touch devices collapses to the same simple fade-up as useScrollReveal
  * - <RevealText unit stagger as ...> — convenience wrapper around
  *   useSplitTextReveal for the common case
+ * - useParallax(ref, speed) — scroll-tied translateY, decorative only
+ * - useMousePositionParallax(ref, opts) — mouse-driven drift, desktop only
  *
  * Performance contract (per PRD):
  * - Only `transform` + `opacity` are animated; no layout properties
  * - SplitText DOM operations happen once at mount, not per-frame
- * - ScrollTrigger uses `once: true` to allow GC after firing
+ * - ScrollTrigger uses `once: true` (entrance) or `scrub` (parallax) — never
+ *   layout-thrashing properties
+ * - Mouse parallax listeners are RAF-throttled
  * - All animations share the GSAP ticker that Lenis is hooked into (#04)
  *
  * Gate behavior (per motionGates.ts):
  * - Reduced motion → element stays at its final state, no animation
- * - Touch / mobile → simple fade-up only, no split-text choreography
- * - Desktop → full character / word / line stagger
+ * - Touch / mobile → simple fade-up only (no split-text, no parallax)
+ * - Desktop → full character / word / line stagger + parallax
  */
 import {
   ComponentPropsWithoutRef,
   ElementType,
   ReactNode,
+  RefObject,
   useEffect,
   useRef,
 } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
-import { useIsTouchDevice, useReducedMotion } from './motionGates';
+import { useIsDesktop, useIsTouchDevice, useReducedMotion } from './motionGates';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, SplitText);
@@ -237,4 +242,118 @@ export function RevealText<As extends ElementType = 'div'>({
       {children}
     </Component>
   );
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// useParallax — scroll-tied translateY for decorative layers
+// ─────────────────────────────────────────────────────────────────────
+
+/**
+ * Scroll-tied parallax for a decorative element. `speed` is the fraction of
+ * scroll speed the element moves at — 0.5 = half scroll speed (looks like a
+ * background drifting behind faster-moving content), 0.85 = subtle lag.
+ *
+ * Decorative layers only — never apply to text, cards, or content imagery
+ * (the PRD's parallax rule). Animates `yPercent` only — no layout properties.
+ * Disabled on touch and reduced-motion.
+ *
+ * `speed` should sit in [0.4, 0.8] for the look the PRD defines. The hook
+ * does not clamp — callers can choose to break the convention deliberately.
+ */
+export function useParallax(ref: RefObject<HTMLElement | null>, speed: number) {
+  const reduced = useReducedMotion();
+  const isDesktop = useIsDesktop();
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || reduced || !isDesktop) return;
+
+    const tween = gsap.fromTo(
+      el,
+      { yPercent: 0 },
+      {
+        yPercent: -100 * (1 - speed),
+        ease: 'none',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        },
+      }
+    );
+
+    return () => {
+      tween.scrollTrigger?.kill();
+      tween.kill();
+      gsap.set(el, { clearProps: 'transform' });
+    };
+  }, [ref, speed, reduced, isDesktop]);
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// useMousePositionParallax — cursor-driven drift on a decorative element
+// ─────────────────────────────────────────────────────────────────────
+
+export interface MousePositionParallaxOptions {
+  /** Maximum drift in pixels from rest position. Default 12. */
+  strength?: number;
+  /** Tween duration for each update, in seconds. Default 0.6. */
+  duration?: number;
+  /**
+   * Direction modifier. `'opposite'` (default) makes the element drift
+   * away from the cursor — the classic "background panel" effect.
+   * `'follow'` makes it drift toward the cursor.
+   */
+  direction?: 'opposite' | 'follow';
+}
+
+/**
+ * Cursor-driven parallax for a decorative element on desktop only. The
+ * element drifts a few pixels opposite to (or toward) the cursor based on
+ * cursor position relative to viewport center. RAF-throttled, no-op on
+ * touch / reduced-motion.
+ *
+ * Use on hero orbs and other ambient decoration. Never on content.
+ */
+export function useMousePositionParallax(
+  ref: RefObject<HTMLElement | null>,
+  opts: MousePositionParallaxOptions = {}
+) {
+  const reduced = useReducedMotion();
+  const isTouch = useIsTouchDevice();
+  const isDesktop = useIsDesktop();
+  const { strength = 12, duration = 0.6, direction = 'opposite' } = opts;
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || reduced || isTouch || !isDesktop) return;
+
+    const sign = direction === 'opposite' ? -1 : 1;
+    let frame = 0;
+
+    const handle = (event: MouseEvent) => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const cx = window.innerWidth / 2;
+        const cy = window.innerHeight / 2;
+        const dx = (event.clientX - cx) / cx;
+        const dy = (event.clientY - cy) / cy;
+        gsap.to(el, {
+          x: sign * dx * strength,
+          y: sign * dy * strength,
+          duration,
+          ease: 'power2.out',
+          overwrite: 'auto',
+        });
+      });
+    };
+
+    window.addEventListener('mousemove', handle);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('mousemove', handle);
+      gsap.set(el, { clearProps: 'transform' });
+    };
+  }, [ref, strength, duration, direction, reduced, isTouch, isDesktop]);
 }
