@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import Button from '@/components/Button';
 import { useInView } from '@/hooks/useInView';
 import './solutions.css';
 
@@ -90,10 +89,10 @@ const filters: { key: Category; label: string }[] = [
 ];
 
 const tagColors: Record<string, string> = {
-  'Software Development': '#4f7cff',
-  'Product & UX Design': '#7c5cff',
-  'AI Consulting': '#5cb8ff',
-  'Marketing Strategy': '#ff5c9d',
+  'Software Development': '#FF8A3D',
+  'Product & UX Design': '#FF8A3D',
+  'AI Consulting': '#FF8A3D',
+  'Marketing Strategy': '#FF8A3D',
 };
 
 const Solutions: React.FC = () => {
@@ -195,10 +194,7 @@ const Solutions: React.FC = () => {
         <div className="solutions-cta__inner scroll-fade-up">
           <h2>Not sure what you need?</h2>
           <p>Book a free 30-min call and we&apos;ll help you figure it out.</p>
-          <Link href="/contact" className="btn btn--primary">
-            Schedule a Call
-            <ArrowForwardIcon className="btn__arrow" fontSize="small" />
-          </Link>
+          <Button href="/contact">Schedule a Call</Button>
         </div>
       </section>
 

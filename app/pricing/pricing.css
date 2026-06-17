@@ -46,7 +46,7 @@
 }
 
 .pricing-hero__gradient {
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  background: var(--accent);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -108,7 +108,7 @@
   top: -14px;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  background: var(--accent);
   color: #fff;
   font-size: 11px;
   font-weight: 700;
@@ -206,7 +206,7 @@
 }
 
 .plan-card__cta--featured:hover {
-  background: #6290ff;
+  background: var(--accent-hover);
   border-color: transparent;
 }
 
