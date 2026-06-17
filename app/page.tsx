@@ -9,6 +9,7 @@ import {
   RevealText,
   useMousePositionParallax,
   useParallax,
+  useScrollReveal,
 } from '@/hooks/motionPrimitives';
 import './home.css';
 
@@ -54,6 +55,14 @@ const Home: React.FC = () => {
   useMousePositionParallax(glow1Ref, { strength: 14 });
   useMousePositionParallax(glow2Ref, { strength: 10 });
 
+  // Hero CTAs: scale-from-0.96 + fade, fires after the subhead word reveal.
+  const heroCtasRef = useScrollReveal<HTMLDivElement>({
+    y: 0,
+    scale: 0.96,
+    delay: 1.7,
+    duration: 0.5,
+  });
+
   return (
     <div className="home">
 
@@ -62,20 +71,28 @@ const Home: React.FC = () => {
         <div ref={glow1Ref} className="hero__glow hero__glow--1" />
         <div ref={glow2Ref} className="hero__glow hero__glow--2" />
         <div className="hero__inner">
-          <div className="hero__badge animate-fade-up" style={{ animationDelay: '0ms' }}>
-            <span className="hero__badge-dot" />
-            Available for new projects
-          </div>
-          <RevealText as="h1" unit="char" stagger={25} trigger="load" className="hero__heading">
-            Ready. Set.<span className="hero__heading-gradient"> Launch.</span>
+          <RevealText
+            as="h1"
+            unit="char"
+            stagger={25}
+            trigger="load"
+            className="hero__heading"
+          >
+            We build AI solutions
           </RevealText>
-          <p className="hero__sub animate-fade-up" style={{ animationDelay: '180ms' }}>
-            Spacecadet is a multidisciplinary studio delivering software development, product design,
-            AI integration, and marketing strategy for ambitious companies.
-          </p>
-          <div className="hero__actions animate-fade-up" style={{ animationDelay: '280ms' }}>
-            <Button href="/solutions">Explore Solutions</Button>
-            <Button href="/contact" variant="ghost">Start a Project</Button>
+          <RevealText
+            as="p"
+            unit="word"
+            stagger={60}
+            delay={1000}
+            trigger="load"
+            className="hero__sub"
+          >
+            We help growing businesses move beyond off-the-shelf SaaS — building custom AI products and integrations designed around your data, owned by your team, and engineered to lower long-term software costs.
+          </RevealText>
+          <div ref={heroCtasRef} className="hero__actions">
+            <Button href="/contact">Book a discovery call</Button>
+            <Button href="/work" variant="ghost">See our work</Button>
           </div>
         </div>
       </section>
