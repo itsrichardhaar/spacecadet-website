@@ -29,14 +29,14 @@ const Navbar: React.FC = () => {
 
   const desktopLinks = [
     { path: '/about', label: 'About' },
-    { path: '/solutions', label: 'Solutions' },
+    { path: '/capabilities', label: 'Capabilities' },
     { path: '/pricing', label: 'Pricing' },
   ];
 
   const mobileLinks = [
     { path: '/', label: 'Home' },
     { path: '/about', label: 'About' },
-    { path: '/solutions', label: 'Solutions' },
+    { path: '/capabilities', label: 'Capabilities' },
     { path: '/pricing', label: 'Pricing' },
     { path: '/contact', label: 'Contact' },
   ];
